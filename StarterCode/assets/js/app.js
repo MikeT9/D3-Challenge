@@ -65,12 +65,24 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
         .data(healthData)
         .enter()
         .append("circle")
-        .attr("cx", d => xLinearScale(d.healthcare))
-        .attr("cy", d => yLinearScale(d.poverty))
+        .attr("cy", d => yLinearScale(d.healthcare))
+        .attr("cx", d => xLinearScale(d.poverty))
         .attr("r", "15")
-        .attr("fill", "pink")
-        .attr("opacity", ".5")
-        .text(d=>d.abbr);
+        .attr("fill", "blue")
+        .attr("opacity", ".5");
+
+      var circlesLabel = chartGroup.selectAll("label")
+        .data(healthData)
+        .enter()
+        .append("text")
+        .attr("class", "StAbbr")
+        .text(d=>d.abbr)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "10")
+        .attr("fill", "white")
+        .attr("dy", d => yLinearScale(d.healthcare))
+        .attr("dx", d => xLinearScale(d.poverty));
+
       // Step 6: Initialize tool tip
       // ==============================
       var toolTip = d3.tip()
